@@ -2566,22 +2566,31 @@ def GalankBot(op):
                     if text is not None:
                         Galank.sendMessage(msg.to,text)
                 if msg.contentType == 0 and sender not in GalankMID and msg.toType == 2:
-                    if 'MENTION' in msg.contentMetadata.keys()!= None:
-                        names = re.findall(r'@(\w+)', text)
-                        mention = ast.literal_eval(msg.contentMetadata['MENTION'])
-                        mentionees = mention['MENTIONEES']
-                        lists = []
-                        for mention in mentionees:
-                            if GalankMID in mention["M"]:
-                                if settings["detectMention"] == True:
-            			 if op.param2 in GalankMID:
-                		 return
-             				ginfo = Galank.getGroup(op.param1)
-            					 contact = Galank.getContact(op.param2)
-            					 image = "http://dl.profile.line.naver.jp/" + contact.pictureStatus
-            					 Galank.sendMessage(op.param1,"Hii " + Galank.getContact(op.param2).displayName + "\n" + str(ginfo.name) + " " + "\njangan lupa tikung\nDan Semoga Betah Disini ye")
-            					 Galank.sendImageWithURL(op.param1,image)
-
+                             if 'MENTION' in msg.contentMetadata.keys() != None:
+                 if wait["detectMention"] == True:          
+                    contact = Galank.getContact(msg.from_)
+                    cName = contact.displayName
+                    balas = ["[auto respon Bot] " + cName + ", 😛😛😛"]
+                    balas1 = "Kenapa taq aim?? pasti numpang ngartis ya 😂😂😂"
+                    ret_ = random.choice(balas)
+                    image = "http://dl.profile.line-cdn.net/" + contact.pictureStatus
+                    name = re.findall(r'@(\w+)', msg.text)
+                    mention = ast.literal_eval(msg.contentMetadata['MENTION'])
+                    mentionees = mention['MENTIONEES']
+                    for mention in mentionees:
+                           if mention['M'] in Bots:
+                                  Galank.sendText(msg.to,ret_)
+                                  Galank.sendText(msg.to,balas1)
+                                  Galank.sendImageWithURL(msg.to,image)
+                                  msg.contentType = 7   
+                                  msg.text = None
+                                  msg.contentMetadata = {
+                                                       "STKID": "46388637",
+                                                       "STKPKGID": "3575615",
+                                                       "STKVER": "1" }
+                                  Galank.sendMessage(msg)                                
+                                  break  
+   
         if op.type == 17:
            print ("MEMBER JOIN TO GROUP")
            if settings["Sambutan"] == True:
