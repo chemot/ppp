@@ -2573,8 +2573,14 @@ def GalankBot(op):
                         lists = []
                         for mention in mentionees:
                             if GalankMID in mention["M"]:
-                              if settings["detectMention"] == True:
-                                 sendMention(receiver, sender, "", " \nGalank Hadir BossQ!! ")
+                                if settings["detectMention"] == True:
+            			 if op.param2 in GalankMID:
+                		 return
+             				ginfo = Galank.getGroup(op.param1)
+            					 contact = Galank.getContact(op.param2)
+            					 image = "http://dl.profile.line.naver.jp/" + contact.pictureStatus
+            					 Galank.sendMessage(op.param1,"Hii " + Galank.getContact(op.param2).displayName + "\n" + str(ginfo.name) + " " + "\njangan lupa tikung\nDan Semoga Betah Disini ye")
+            					 Galank.sendImageWithURL(op.param1,image)
 
         if op.type == 17:
            print ("MEMBER JOIN TO GROUP")
